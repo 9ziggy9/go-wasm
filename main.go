@@ -4,7 +4,10 @@ import (
   "syscall/js"
 )
 
+func _consoleLog(str string) js.Value {
+  return js.Global().Get("console").Call("log", str)
+}
+
 func main() {
-  console := js.Global().Get("console")
-  console.Call("log", "Hello, Go!")
+  _consoleLog("Hello, Go! Lel")
 }
