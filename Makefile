@@ -1,14 +1,12 @@
 GOOS=js
 GOARCH=wasm
+BUILD_DIR=bin
 
 all: main.go
-	GOARCH=$(GOARCH) GOOS=$(GOOS) go build -o main.wasm main.go
+	GOARCH=$(GOARCH) GOOS=$(GOOS) go build -o $(BUILD_DIR)/main.wasm main.go
 
 serve: serve.go
 	go run serve.go
 
-debug: ./interfaces/cell.go
-	go run ./interfaces/cell.go
-
 clean:
-	rm -rf app
+	rm -rf bin/main.wasm
