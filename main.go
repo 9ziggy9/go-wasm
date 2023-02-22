@@ -31,11 +31,10 @@ func _initGrid(rows uint8, cols uint8) {
 }
 
 func init() {
-  consoleLog("Hello from initialization")
+  _initGrid(60,30)
 }
 
 func main() {
-  _initGrid(60,30)
   c := Cell{X: 0, Y: 0, State: DEAD}
   fmt.Printf("x: %d, y: %d, state: %d", c.X, c.Y, c.State)
 }
