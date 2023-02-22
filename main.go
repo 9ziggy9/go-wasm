@@ -12,7 +12,7 @@ const (
   COLS = 50
 )
 
-func jsPrintStr[T js.Value | string](val T) js.Value {
+func consoleLog[T js.Value | string](val T) js.Value {
   return js.Global().Get("console").Call("log", val)
 }
 
@@ -20,7 +20,7 @@ func jsPrintStr[T js.Value | string](val T) js.Value {
 func _initGrid(rows uint8, cols uint8) {
   doc := js.Global().Get("document")
   grid := doc.Call("getElementById", "grid")
-  jsPrintStr(grid)
+  consoleLog(grid)
   for y := 0; y < ROWS; y = y+1 {
     for x := 0; x < COLS; x = x+1 {
       newCell := doc.Call("createElement", "div")
@@ -31,7 +31,7 @@ func _initGrid(rows uint8, cols uint8) {
 }
 
 func init() {
-  jsPrintStr("Hello from initialization")
+  consoleLog("Hello from initialization")
 }
 
 func main() {
