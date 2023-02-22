@@ -7,5 +7,8 @@ all: main.go
 serve: serve.go
 	go run serve.go
 
+debug: ./interfaces/cell.go
+	go run ./interfaces/cell.go
+
 clean:
 	rm -rf app

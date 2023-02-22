@@ -1,14 +1,25 @@
 package main
 
 import (
+  // "bufio"
   "net/http"
   "fmt"
+  // "os"
 )
 
-const PORT = 1337
 var fstr = fmt.Sprintf
 
+func serveHTTP(port uint16) {
+  fmt.Printf("Listening on port %d...\n", port)
+  err := http.ListenAndServe(fstr(":%d", port), http.FileServer(http.Dir(".")))
+  if err != nil {
+    panic("Panicking!")
+  }
+  defer func() {
+    fmt.Println("Goodbye!")
+  }()
+}
+
 func main() {
-  fmt.Printf("Listening on port %d...\n", PORT)
-  http.ListenAndServe(fstr(":%d", PORT), http.FileServer(http.Dir(".")))
+  serveHTTP(1337)
 }
