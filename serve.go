@@ -2,6 +2,7 @@ package main
 
 import (
   // "bufio"
+  "context"
   "net/http"
   "fmt"
   // "os"
@@ -9,17 +10,30 @@ import (
 
 var fstr = fmt.Sprintf
 
-func serveHTTP(port uint16) {
-  fmt.Printf("Listening on port %d...\n", port)
-  err := http.ListenAndServe(fstr(":%d", port), http.FileServer(http.Dir(".")))
-  if err != nil {
-    panic("Panicking!")
+func runServer(server *http.Server) {
+  fmt.Println("Starting server...")
+  fmt.Println("Press enter to kill server...")
+  if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+      fmt.Printf("Error starting server: ")
+      panic(err)
   }
   defer func() {
-    fmt.Println("Goodbye!")
+    fmt.Println("Adios...")
   }()
 }
 
 func main() {
-  serveHTTP(1337)
+  // Instantiate a server struct
+  sv := &http.Server{Addr: ":1337"}
+
+  go runServer(sv)
+
+  fmt.Scanln() // Wait for input
+
+  fmt.Println("Killing server.")
+  if err := sv.Shutdown(context.Background()); err != nil {
+    fmt.Printf("Error stopping server! \n%v\n", err)
+  }
+
+  fmt.Println("Server stopped.")
 }
