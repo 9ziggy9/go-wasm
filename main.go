@@ -12,15 +12,15 @@ const (
   COLS = 50
 )
 
-func jsPrintStr(str string) js.Value {
-  return js.Global().Get("console").Call("log", str)
+func jsPrintStr[T js.Value | string](val T) js.Value {
+  return js.Global().Get("console").Call("log", val)
 }
 
 // Taking the convention that _ means run ONCE
 func _initGrid(rows uint8, cols uint8) {
   doc := js.Global().Get("document")
   grid := doc.Call("getElementById", "grid")
-  jsPrintStr("Initializing the grid...")
+  jsPrintStr(grid)
   for y := 0; y < ROWS; y = y+1 {
     for x := 0; x < COLS; x = x+1 {
       newCell := doc.Call("createElement", "div")

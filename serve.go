@@ -10,6 +10,15 @@ import (
 
 var fstr = fmt.Sprintf
 
+func buildServer(port uint16) *http.Server {
+  sv := new(http.Server)
+  fmt.Println("Building server structure...")
+  fileServer := http.FileServer(http.Dir("."))
+  sv = &http.Server{Addr: fstr(":%d", port), Handler: http.DefaultServeMux}
+  http.Handle("/", fileServer)
+  return sv
+}
+
 func runServer(server *http.Server) {
   fmt.Println("Starting server...")
   fmt.Println("Press enter to kill server...")
@@ -23,12 +32,13 @@ func runServer(server *http.Server) {
 }
 
 func main() {
-  // Instantiate a server struct
-  sv := &http.Server{Addr: ":1337"}
+  var input string // Store command line input
 
+  sv := buildServer(1337)
   go runServer(sv)
 
-  fmt.Scanln() // Wait for input
+  fmt.Scanln(&input) // Wait for input
+  fmt.Println("You said:", input)
 
   fmt.Println("Killing server.")
   if err := sv.Shutdown(context.Background()); err != nil {
