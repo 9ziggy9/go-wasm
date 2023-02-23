@@ -2,7 +2,6 @@ package interfaces
 
 import (
   . "gogol/global"
-  "gogol/console"
   "fmt"
 )
 
@@ -39,5 +38,5 @@ func (w *World) Log() {
     }
   }
   worldStr += "]"
-  console.Log(worldStr)
+  fmt.Println(worldStr)
 }
