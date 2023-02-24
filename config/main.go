@@ -1,6 +1,6 @@
 package global
 
 const (
-  ROWS = 35
-  COLS = 50
+  ROWS = 16
+  COLS = 32
 )

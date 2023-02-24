@@ -1,7 +1,7 @@
 package interfaces
 
 import (
-  . "gogol/global"
+  . "gogol/config"
   "fmt"
 )
 

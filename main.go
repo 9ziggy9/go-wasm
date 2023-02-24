@@ -4,8 +4,7 @@ import (
   "fmt"
   "syscall/js"
   . "gogol/interfaces"
-  // . "gogol/global"
-  // "gogol/console"
+  "gogol/ui"
 )
 
 // NOTE:
@@ -22,23 +21,13 @@ func handleClick(x, y int) js.Func {
 }
 
 func main() {
-  gridParams := js.ValueOf(map[string] interface{} {
-    "cols": 32,
-    "rows": 18,
-    "scale": 50,
-    "containerId": "game",
-    "gridId": "grid",
-    "cellClass": "cell",
-  })
-
-  gridBinding := js.Global().Get("Grid").Invoke(gridParams)
-  gridBinding.Get("create").Invoke()
-  // Initialize UI
-  // _initGrid(60,30)
-
   // Build the world
   var world World
   world.Build()
+
+  // Bind to JS UI
+  gridBinding := ui.GenerateGridBinding(world, 50, "game", "grid", "cell")
+  gridBinding.Get("create").Invoke()
 
   select {} // Run indefinitely
 }
