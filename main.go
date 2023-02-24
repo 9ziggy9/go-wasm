@@ -21,32 +21,14 @@ func handleClick(x, y int) js.Func {
   })
 }
 
-type GridStruct struct {
-  cols int
-  rows int
-  scale float64
-  containerId string
-  gridId string
-  cellClass string
-} 
-
 func main() {
-  gridStruct := GridStruct{
-    cols: 32,
-    rows: 18,
-    scale: 50,
-    containerId: "game",
-    gridId: "grid",
-    cellClass: "cell",
-  }
-
   gridParams := js.ValueOf(map[string] interface{} {
-    "cols": gridStruct.cols,
-    "rows": gridStruct.rows,
-    "scale": gridStruct.scale,
-    "containerId": gridStruct.containerId,
-    "gridId": gridStruct.gridId,
-    "cellClass": gridStruct.cellClass,
+    "cols": 32,
+    "rows": 18,
+    "scale": 50,
+    "containerId": "game",
+    "gridId": "grid",
+    "cellClass": "cell",
   })
 
   gridBinding := js.Global().Get("Grid").Invoke(gridParams)
