@@ -5,18 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>WASM TEST</title>
-  <link rel="stylesheet" href="./static/style.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <div id="main">
     <div id="grid"></div>
   </div>
-  <script src="./static/wasm_exec.js"></script>
-  <script>
-   // Load the WebAssembly module
-   const go = new Go();
-   WebAssembly.instantiateStreaming(fetch("./bin/main.wasm"), go.importObject)
-	      .then(result => go.run(result.instance));
-  </script>
+  <script src="./js/wasm_exec.js"></script>
+  <script src="./js/main.js"></script>
 </body>
 </html>

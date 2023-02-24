@@ -35,10 +35,3 @@ body {
     justify-content: center;
     caret-color: transparent;
 }
-
-#grid {
-    background-color: var(--my-light-yellow);
-    display: grid;
-    grid-template-columns: repeat(50, 1.5em);
-    grid-template-rows: repeat(35, 1.5em);
-}

@@ -4,7 +4,7 @@ import (
   "fmt"
   "syscall/js"
   . "gogol/interfaces"
-  . "gogol/global"
+  // . "gogol/global"
   "gogol/console"
 )
 
@@ -21,30 +21,30 @@ func handleClick(x, y int) js.Func {
   })
 }
 
-// Taking the convention that _ means run ONCE
-func _initGrid(rows uint8, cols uint8) {
-  doc := js.Global().Get("document")
-  grid := doc.Call("getElementById", "grid")
-  console.Log(grid)
-  for y := 0; y < ROWS; y = y+1 {
-    for x := 0; x < COLS; x = x+1 {
-      newCell := doc.Call("createElement", "div")
-      newCell.Call("setAttribute", "id", fmt.Sprintf("(%d,%d)", x, y))
-      newCell.Call("addEventListener", "click", handleClick(x,y))
-      grid.Call("appendChild", newCell)
-    }
-  }
-}
+// // Taking the convention that _ means run ONCE
+// func _initGrid(rows uint8, cols uint8) {
+//   doc := js.Global().Get("document")
+//   grid := doc.Call("getElementById", "grid")
+//   console.Log(grid)
+//   for y := 0; y < ROWS; y = y+1 {
+//     for x := 0; x < COLS; x = x+1 {
+//       newCell := doc.Call("createElement", "div")
+//       newCell.Call("setAttribute", "id", fmt.Sprintf("(%d,%d)", x, y))
+//       newCell.Get("classList").Call("add", "grid-cell")
+//       newCell.Call("addEventListener", "click", handleClick(x,y))
+//       grid.Call("appendChild", newCell)
+//     }
+//   }
+// }
 
 func main() {
   console.Log("Hello, from Go main!")
   // Initialize UI
-  _initGrid(60,30)
+  // _initGrid(60,30)
 
   // Build the world
   var world World
   world.Build()
-  world.Log()
 
   select {} // Run indefinitely
 }
