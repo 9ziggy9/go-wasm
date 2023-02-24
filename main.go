@@ -5,7 +5,7 @@ import (
   "syscall/js"
   . "gogol/interfaces"
   // . "gogol/global"
-  "gogol/console"
+  // "gogol/console"
 )
 
 // NOTE:
@@ -21,24 +21,36 @@ func handleClick(x, y int) js.Func {
   })
 }
 
-// // Taking the convention that _ means run ONCE
-// func _initGrid(rows uint8, cols uint8) {
-//   doc := js.Global().Get("document")
-//   grid := doc.Call("getElementById", "grid")
-//   console.Log(grid)
-//   for y := 0; y < ROWS; y = y+1 {
-//     for x := 0; x < COLS; x = x+1 {
-//       newCell := doc.Call("createElement", "div")
-//       newCell.Call("setAttribute", "id", fmt.Sprintf("(%d,%d)", x, y))
-//       newCell.Get("classList").Call("add", "grid-cell")
-//       newCell.Call("addEventListener", "click", handleClick(x,y))
-//       grid.Call("appendChild", newCell)
-//     }
-//   }
-// }
+type GridStruct struct {
+  cols int
+  rows int
+  scale float64
+  containerId string
+  gridId string
+  cellClass string
+} 
 
 func main() {
-  console.Log("Hello, from Go main!")
+  gridStruct := GridStruct{
+    cols: 32,
+    rows: 18,
+    scale: 50,
+    containerId: "game",
+    gridId: "grid",
+    cellClass: "cell",
+  }
+
+  gridParams := js.ValueOf(map[string] interface{} {
+    "cols": gridStruct.cols,
+    "rows": gridStruct.rows,
+    "scale": gridStruct.scale,
+    "containerId": gridStruct.containerId,
+    "gridId": gridStruct.gridId,
+    "cellClass": gridStruct.cellClass,
+  })
+
+  gridBinding := js.Global().Get("Grid").Invoke(gridParams)
+  gridBinding.Get("create").Invoke()
   // Initialize UI
   // _initGrid(60,30)
 

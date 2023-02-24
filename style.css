@@ -35,3 +35,8 @@ body {
     justify-content: center;
     caret-color: transparent;
 }
+
+.cell {
+    background-color: var(--my-light-yellow);
+    border: 1px solid var(--my-white);
+}
